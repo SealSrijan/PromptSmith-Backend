@@ -36,36 +36,19 @@ app.post("/api/analyze-prompt", async (req, res) => {
     });
 
     const instruction = `
-You are PromptSmith, an elite prompt engineer.
+You are an expert prompt engineer.
 
-Analyze the user's prompt and return ONLY valid JSON.
+Rewrite the user's prompt into a more detailed,
+clear, professional prompt.
 
-JSON format:
+Return ONLY JSON:
 
 {
-  "score": number,
-  "category": string,
-  "feedback": [
-    {
-      "element": string,
-      "status": "missing",
-      "advice": string,
-      "example": string
-    }
-  ],
-  "improvedPrompt": string
+  "improvedPrompt": "..."
 }
 
-Rules:
-- score must be from 0 to 100
-- category must be short
-- feedback should identify missing prompt components
-- improvedPrompt should preserve user intent but significantly improve quality
-- Return ONLY JSON
-- Do not wrap in markdown
-
 User Prompt:
-${userPrompt}
+${message.prompt}
 `;
 
     const result = await model.generateContent(
